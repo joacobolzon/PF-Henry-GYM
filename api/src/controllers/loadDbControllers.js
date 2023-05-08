@@ -89,9 +89,9 @@ const getAndLoadDbMuscle = async () => {
     return error;
   }
 };
- //console.log(getAndLoadDbMuscle())
- //console.log(getAndLoadDbExercises())
- //console.log(getAndLoadDbBodyParts())
+ console.log(getAndLoadDbMuscle())
+ console.log(getAndLoadDbExercises())
+ console.log(getAndLoadDbBodyParts())
 
 module.exports = {
   getAndLoadDbExercises,
