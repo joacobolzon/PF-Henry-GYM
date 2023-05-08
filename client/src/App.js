@@ -15,6 +15,9 @@ import Login from "./components/Login/Login";
 import Store from "./components/Store/Store";
 import FormProducts from "./components/FormProducts/FormProducts";
 
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:3001/'
+
 const App = () => {
   const location = useLocation();
   return (

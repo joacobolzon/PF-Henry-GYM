@@ -1,3 +1,6 @@
+require('dotenv').config();
+const {XRAPIDAPIKEY, XRAPIDAPIHOST} = process.env
+
 const axios = require("axios");
 const { Exercise, Bodypart, Muscle } = require("../db");
 const getAndLoadDbExercises = async () => {
@@ -6,8 +9,8 @@ const getAndLoadDbExercises = async () => {
     url: "https://exercisedb.p.rapidapi.com/exercises",
     headers: {
       "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "bf730ac0f4msh44114018a91bcb5p103951jsn14fd519029dc",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+      "X-RapidAPI-Key": `${XRAPIDAPIKEY}`,
+      "X-RapidAPI-Host": `${XRAPIDAPIHOST}`,
     },
   };
 
@@ -39,8 +42,8 @@ const getAndLoadDbBodyParts = async () => {
     url: "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
     headers: {
       "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "bf730ac0f4msh44114018a91bcb5p103951jsn14fd519029dc",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+      "X-RapidAPI-Key": `${XRAPIDAPIKEY}`,
+      "X-RapidAPI-Host": `${XRAPIDAPIHOST}`,
     },
   };
 
@@ -66,8 +69,8 @@ const getAndLoadDbMuscle = async () => {
     url: "https://exercisedb.p.rapidapi.com/exercises/targetList",
     headers: {
       "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "bf730ac0f4msh44114018a91bcb5p103951jsn14fd519029dc",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
+      "X-RapidAPI-Key": `${XRAPIDAPIKEY}`,
+      "X-RapidAPI-Host": `${XRAPIDAPIHOST}`,
     },
   };
 
