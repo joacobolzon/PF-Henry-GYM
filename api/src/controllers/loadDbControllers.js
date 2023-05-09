@@ -65,7 +65,6 @@ const getAndLoadDbMuscles = async () => {
     });
 
     const dataMuscles = [...uniqueMuscles];
-    await Promise.all(
       dataMuscles.map(async (muscle) => {
         await Muscle.findOrCreate({
           where: {
@@ -75,7 +74,7 @@ const getAndLoadDbMuscles = async () => {
           },
         });
       })
-    );
+  
 
     return "Muscles loaded correctly";
   } catch (error) {
