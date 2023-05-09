@@ -42,7 +42,6 @@ const Store = () => {
 
     return(
         <div className="div_container">
-            <Navbar/>
             <section className="sort">
         <select value={sortOrder} onChange={handleSort}>
           <option value="A-Z">From A to Z</option>
@@ -52,6 +51,9 @@ const Store = () => {
         </select>
       </section>
       <button className="bg-white rounded m-5 p-2 hover:bg-yellow-500 font-bold" onClick={handleReset}>Reset</button>
+      <a href="/formProducts">
+        <button className="bg-white rounded m-5 p-2 hover:bg-yellow-500 font-bold">Create Product</button>
+      </a>
             <section className="productCard">
             <CardsContainerPds start={indexOfFirstProduct} end={indexOfLastProduct}/>
             </section>

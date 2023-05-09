@@ -15,8 +15,8 @@ import Login from "./components/Login/Login";
 import Store from "./components/Store/Store";
 import FormProducts from "./components/FormProducts/FormProducts";
 
-import axios from 'axios'
-axios.defaults.baseURL = 'https://pf-henry-gym-production.up.railway.app'
+import axios from "axios";
+axios.defaults.baseURL = "https://pf-henry-gym-production.up.railway.app";
 
 const App = () => {
   const location = useLocation();
@@ -32,16 +32,20 @@ const App = () => {
               <Header />
               <Services />
               <Footer />
-            
             </div>
           }
         />
         <Route path="/contact" element={<Contact />} />
-        
-        <Route path="/home" element={<div>
-            <NavSec />
-            <Home />
-          </div>} />
+
+        <Route
+          path="/home"
+          element={
+            <div>
+              <NavSec />
+              <Home />
+            </div>
+          }
+        />
         <Route
           path="/exercises"
           element={
@@ -51,11 +55,19 @@ const App = () => {
             </div>
           }
         />
-        <Route exact path="/formProducts" element={<FormProducts/>}/>
+        <Route exact path="/formProducts" element={<FormProducts />} />
         <Route path="/*" element={<Error />} />
-        <Route path="/create" element={<FormCreate/>} />
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/store" element={<Store/>}/>
+        <Route path="/create" element={<FormCreate />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/store"
+          element={
+            <div>
+              <NavSec />
+              <Store />
+            </div>
+          }
+        />
         <Route
           path="/register"
           element={
