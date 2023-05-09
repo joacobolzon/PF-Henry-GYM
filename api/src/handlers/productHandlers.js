@@ -12,7 +12,7 @@ cloudinary.config({
 
 
 const createProductsHandler = async(req, res) => {
-   const {name, description, price, image}= req.body;
+   const {name, description, price, stock, image}= req.body;
    try {
     const imageupload= await cloudinary.uploader.upload(image, {
       resource_type: "image",
