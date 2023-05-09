@@ -1,11 +1,11 @@
-const axios = require("axios");
 const { Exercise, Bodypart, Muscle } = require("../db");
-const exercisesData = require("./exercisesData");
+const {data} = require("../exercisesData.js");
 
 const getAndLoadDbExercises = async () => {
   try {
     // Utiliza el array de objetos directamente
-    exercisesData.map((e) =>
+    console.log(data);
+    data.map((e) =>
       Exercise.findOrCreate({
         where: {
           id: e.id,
@@ -27,26 +27,30 @@ const getAndLoadDbExercises = async () => {
 };
 
 const getAndLoadDbBodyParts = async () => {
-  const options = {
-    method: "GET",
-    url: "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
-    headers: {
-      "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "7e715ef831msh5c89891ae4651bdp13cde7jsn517618af6d57",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    },
-  };
-
   try {
-    const response = await axios.request(options);
-    response.data.map((e) =>
-      Bodypart.findOrCreate({
-        where: {
-          name: e,
-        },
-      })
+    const bodyPartsSet = new Set();
+    
+
+    // Extrae los bodyParts y muscles únicos
+    data.forEach((exercise) => {
+      bodyPartsSet.add(exercise.bodyPart);
+    });
+
+    // Convierte los Sets en Arrays
+    const bodyPartsArray = Array.from(bodyPartsSet);
+
+    // Agrega los bodyParts únicos a la tabla Bodypart
+    await Promise.all(
+      bodyPartsArray.map((bodyPart) =>
+        Bodypart.findOrCreate({
+          where: {
+            name: bodyPart,
+          },
+        })
+      )
     );
-    return "Body parts loaded correctly";
+
+    return "Bodyparts loaded correctly";
   } catch (error) {
     console.log(error);
     return error;
@@ -54,37 +58,43 @@ const getAndLoadDbBodyParts = async () => {
 };
 
 const getAndLoadDbMuscle = async () => {
-  const options = {
-    method: "GET",
-    url: "https://exercisedb.p.rapidapi.com/exercises/targetList",
-    headers: {
-      "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "7e715ef831msh5c89891ae4651bdp13cde7jsn517618af6d57",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    },
-  };
-
   try {
-    const response = await axios.request(options);
-    response.data.map((e) =>
-      Muscle.findOrCreate({
-        where: {
-          name: e,
-        },
-      })
+    const musclesSet = new Set();
+
+    // Extrae los bodyParts y muscles únicos
+    data.forEach((exercise) => {
+      musclesSet.add(exercise.target);
+    });
+
+    // Convierte los Sets en Arrays
+    const musclesArray = Array.from(musclesSet);
+
+    // Agrega los muscles únicos a la tabla Muscle
+    await Promise.all(
+      musclesArray.map((muscle) =>
+        Muscle.findOrCreate({
+          where: {
+            name: muscle,
+          },
+        })
+      )
     );
+
     return "Muscles loaded correctly";
   } catch (error) {
     console.log(error);
     return error;
   }
-};
-console.log(getAndLoadDbMuscle());
+}
+
+
+
 console.log(getAndLoadDbExercises());
 console.log(getAndLoadDbBodyParts());
+console.log(getAndLoadDbMuscle());
 
 module.exports = {
   getAndLoadDbExercises,
-  getAndLoadDbBodyParts,
-  getAndLoadDbMuscle,
+   getAndLoadDbBodyParts,
+  getAndLoadDbMuscle
 };

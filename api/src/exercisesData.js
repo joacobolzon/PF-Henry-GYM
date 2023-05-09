@@ -1,4 +1,5 @@
-[
+const saludar = 'Hola'
+const data = [
     {
       "bodyPart": "waist",
       "equipment": "body weight",
@@ -10592,3 +10593,5 @@
       "target": "forearms"
     }
   ]
+
+  module.exports = {data , saludar}
