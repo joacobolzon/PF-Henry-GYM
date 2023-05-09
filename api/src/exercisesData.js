@@ -1,4 +1,3 @@
-const saludar = 'Hola'
 const data = [
     {
       "bodyPart": "waist",
@@ -10594,4 +10593,4 @@ const data = [
     }
   ]
 
-  module.exports = {data , saludar}
+  module.exports = {data}
