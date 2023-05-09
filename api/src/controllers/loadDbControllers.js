@@ -65,15 +65,14 @@ const getAndLoadDbMuscles = async () => {
     });
 
     const dataMuscles = [...uniqueMuscles];
-      dataMuscles.map(async (muscle) => {
+    dataMuscles.forEach(
+      async (e) =>
         await Muscle.findOrCreate({
           where: {
-            name: {
-              [Op.eq]: muscle,
-            },
+            name: uniqueMuscles,
           },
-        });
-      })
+        })
+    );
   
 
     return "Muscles loaded correctly";
