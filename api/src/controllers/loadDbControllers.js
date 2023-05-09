@@ -30,22 +30,17 @@ const getAndLoadDbExercises = async () => {
 
 const getAndLoadDbBodyParts = async () => {
   try {
-    const uniqueBodyParts = new Set();
+   /*  const bodyParts = data.map((item) => item.bodyPart);
+    const uniqueBodyParts = [...new Set(bodyParts)];
 
-    data.forEach((item) => {
-      uniqueBodyParts.add(item.bodyPart);
-    });
-
-    const dataBody = [...uniqueBodyParts];
-    
-    dataBody.forEach(
-      async (e) =>
-        await Bodypart.findOrCreate({
-          where: {
-            name: uniqueBodyParts,
-          },
-        })
-    );
+    await Promise.all(
+    uniqueBodyParts.forEach(async (e) => {
+      await Bodypart.findOrCreate({
+        where: {
+          name: e.bodyPart,
+        },
+      });
+    })) */
 
     return "Bodyparts loaded correctly";
   } catch (error) {
@@ -58,7 +53,7 @@ const { Op } = require("sequelize");
 
 const getAndLoadDbMuscles = async () => {
   try {
-    const uniqueMuscles = new Set();
+    /* const uniqueMuscles = new Set();
 
     data.forEach((item) => {
       uniqueMuscles.add(item.target);
@@ -73,7 +68,7 @@ const getAndLoadDbMuscles = async () => {
           },
         })
     );
-  
+   */
 
     return "Muscles loaded correctly";
   } catch (error) {
