@@ -3,8 +3,6 @@ const { data } = require("../exercisesData.js");
 
 const getAndLoadDbExercises = async () => {
   try {
-    // Utiliza el array de objetos directamente
-    console.log(data);
     await Promise.all(
       data.map(async (e) => {
         const [exercise, created] = await Exercise.findOrCreate({
@@ -21,7 +19,6 @@ const getAndLoadDbExercises = async () => {
         });
       })
     );
-
     return "Exercises loaded correctly";
   } catch (error) {
     return error;
