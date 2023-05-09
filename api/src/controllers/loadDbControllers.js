@@ -74,7 +74,7 @@ const getAndLoadDbMuscles = async () => {
   }
 };
 
-//console.log(getAndLoadDbExercises());
+console.log(getAndLoadDbExercises());
 console.log(getAndLoadDbBodyParts());
 console.log(getAndLoadDbMuscles()); 
 
