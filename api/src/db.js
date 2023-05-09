@@ -40,11 +40,11 @@ const { Exercise, Bodypart, Muscle, Routine, Product, User, Bodysale, Headersale
 // Routine.belongsToMany(Exercise, {through: 'Exercise_Routine'});
 // Exercise.belongsToMany(Routine, {through: 'Exercise_Routine'});
 
-Muscle.hasMany(Exercise);
-Exercise.belongsTo(Muscle);
+ // Muscle.hasMany(Exercise);
+ // Exercise.belongsTo(Muscle);
 
-Bodypart.hasMany(Exercise);
-Exercise.belongsTo(Bodypart);
+ // Bodypart.hasMany(Exercise);
+ // Exercise.belongsTo(Bodypart);
 
 Headersale.hasMany(Bodysale);
 Bodysale.belongsTo(Headersale);

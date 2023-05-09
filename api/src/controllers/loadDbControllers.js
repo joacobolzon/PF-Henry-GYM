@@ -19,16 +19,6 @@ const getAndLoadDbExercises = async () => {
             muscle_target: e.target,
           },
         });
-
-        if (!created) {
-          // Actualiza los campos si el ejercicio ya existía
-          exercise.body_part = e.bodyPart;
-          exercise.equipment = e.equipment;
-          exercise.gif_url = e.gifUrl;
-          exercise.name = e.name;
-          exercise.muscle_target = e.target;
-          await exercise.save();
-        }
       })
     );
 
@@ -40,25 +30,21 @@ const getAndLoadDbExercises = async () => {
 
 const getAndLoadDbBodyParts = async () => {
   try {
-    const bodyPartsSet = new Set();
+    const uniqueBodyParts = new Set();
 
-    // Extrae los bodyParts únicos
-    data.forEach((exercise) => {
-      bodyPartsSet.add(exercise.bodyPart);
+    data.forEach((item) => {
+      uniqueBodyParts.add(item.bodyPart);
     });
 
-    // Convierte el Set en un Array
-    const bodyPartsArray = Array.from(bodyPartsSet);
-
-    // Agrega los bodyParts únicos a la tabla Bodypart
-    await Promise.all(
-      bodyPartsArray.map(async (bodyPart) => {
+    const dataBody = [...uniqueBodyParts];
+    
+    dataBody.forEach(
+      async (e) =>
         await Bodypart.findOrCreate({
           where: {
-            name: bodyPart,
+            name: uniqueBodyParts,
           },
-        });
-      })
+        })
     );
 
     return "Bodyparts loaded correctly";
@@ -68,24 +54,24 @@ const getAndLoadDbBodyParts = async () => {
   }
 };
 
-const getAndLoadDbMuscle = async () => {
-  try {
-    const musclesSet = new Set();
+const { Op } = require("sequelize");
 
-    // Extrae los bodyParts y muscles únicos
-    data.forEach((exercise) => {
-      musclesSet.add(exercise.target);
+const getAndLoadDbMuscles = async () => {
+  try {
+    const uniqueMuscles = new Set();
+
+    data.forEach((item) => {
+      uniqueMuscles.add(item.target);
     });
 
-    // Convierte los Sets en Arrays
-    const musclesArray = Array.from(musclesSet);
-
-    // Agrega los muscles únicos a la tabla Muscle
+    const dataMuscles = [...uniqueMuscles];
     await Promise.all(
-      musclesArray.map(async (muscle) => {
+      dataMuscles.map(async (muscle) => {
         await Muscle.findOrCreate({
           where: {
-            name: muscle,
+            name: {
+              [Op.eq]: muscle,
+            },
           },
         });
       })
@@ -96,14 +82,14 @@ const getAndLoadDbMuscle = async () => {
     console.log(error);
     return error;
   }
-}
+};
 
 console.log(getAndLoadDbExercises());
 console.log(getAndLoadDbBodyParts());
-console.log(getAndLoadDbMuscle());
+console.log(getAndLoadDbMuscles()); 
 
 module.exports = {
   getAndLoadDbExercises,
   getAndLoadDbBodyParts,
-  getAndLoadDbMuscle
+  getAndLoadDbMuscles,
 };
