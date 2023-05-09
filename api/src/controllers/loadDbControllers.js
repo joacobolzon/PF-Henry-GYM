@@ -1,22 +1,34 @@
 const { Exercise, Bodypart, Muscle } = require("../db");
-const {data} = require("../exercisesData.js");
+const { data } = require("../exercisesData.js");
 
 const getAndLoadDbExercises = async () => {
   try {
     // Utiliza el array de objetos directamente
     console.log(data);
-    data.map((e) =>
-      Exercise.findOrCreate({
-        where: {
-          id: e.id,
-        },
-        defaults: {
-          body_part: e.bodyPart,
-          equipment: e.equipment,
-          gif_url: e.gifUrl,
-          name: e.name,
-          muscle_target: e.target,
-        },
+    await Promise.all(
+      data.map(async (e) => {
+        const [exercise, created] = await Exercise.findOrCreate({
+          where: {
+            id: e.id,
+          },
+          defaults: {
+            body_part: e.bodyPart,
+            equipment: e.equipment,
+            gif_url: e.gifUrl,
+            name: e.name,
+            muscle_target: e.target,
+          },
+        });
+
+        if (!created) {
+          // Actualiza los campos si el ejercicio ya existía
+          exercise.body_part = e.bodyPart;
+          exercise.equipment = e.equipment;
+          exercise.gif_url = e.gifUrl;
+          exercise.name = e.name;
+          exercise.muscle_target = e.target;
+          await exercise.save();
+        }
       })
     );
 
@@ -29,25 +41,24 @@ const getAndLoadDbExercises = async () => {
 const getAndLoadDbBodyParts = async () => {
   try {
     const bodyPartsSet = new Set();
-    
 
-    // Extrae los bodyParts y muscles únicos
+    // Extrae los bodyParts únicos
     data.forEach((exercise) => {
       bodyPartsSet.add(exercise.bodyPart);
     });
 
-    // Convierte los Sets en Arrays
+    // Convierte el Set en un Array
     const bodyPartsArray = Array.from(bodyPartsSet);
 
     // Agrega los bodyParts únicos a la tabla Bodypart
     await Promise.all(
-      bodyPartsArray.map((bodyPart) =>
-        Bodypart.findOrCreate({
+      bodyPartsArray.map(async (bodyPart) => {
+        await Bodypart.findOrCreate({
           where: {
             name: bodyPart,
           },
-        })
-      )
+        });
+      })
     );
 
     return "Bodyparts loaded correctly";
@@ -71,13 +82,13 @@ const getAndLoadDbMuscle = async () => {
 
     // Agrega los muscles únicos a la tabla Muscle
     await Promise.all(
-      musclesArray.map((muscle) =>
-        Muscle.findOrCreate({
+      musclesArray.map(async (muscle) => {
+        await Muscle.findOrCreate({
           where: {
             name: muscle,
           },
-        })
-      )
+        });
+      })
     );
 
     return "Muscles loaded correctly";
@@ -87,14 +98,12 @@ const getAndLoadDbMuscle = async () => {
   }
 }
 
-
-
 console.log(getAndLoadDbExercises());
 console.log(getAndLoadDbBodyParts());
 console.log(getAndLoadDbMuscle());
 
 module.exports = {
   getAndLoadDbExercises,
-   getAndLoadDbBodyParts,
+  getAndLoadDbBodyParts,
   getAndLoadDbMuscle
 };
