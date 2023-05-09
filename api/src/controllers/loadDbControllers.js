@@ -1,22 +1,11 @@
-require('dotenv').config();
-const {XRAPIDAPIKEY, XRAPIDAPIHOST} = process.env
-
 const axios = require("axios");
 const { Exercise, Bodypart, Muscle } = require("../db");
-const getAndLoadDbExercises = async () => {
-  const options = {
-    method: "GET",
-    url: "https://exercisedb.p.rapidapi.com/exercises",
-    headers: {
-      "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "7e715ef831msh5c89891ae4651bdp13cde7jsn517618af6d57",
-      "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    },
-  };
+const exercisesData = require("./exercisesData");
 
+const getAndLoadDbExercises = async () => {
   try {
-    const response = await axios.request(options);
-    response.data.map((e) =>
+    // Utiliza el array de objetos directamente
+    exercisesData.map((e) =>
       Exercise.findOrCreate({
         where: {
           id: e.id,
@@ -30,6 +19,7 @@ const getAndLoadDbExercises = async () => {
         },
       })
     );
+
     return "Exercises loaded correctly";
   } catch (error) {
     return error;
@@ -89,9 +79,9 @@ const getAndLoadDbMuscle = async () => {
     return error;
   }
 };
- console.log(getAndLoadDbMuscle())
- console.log(getAndLoadDbExercises())
- console.log(getAndLoadDbBodyParts())
+console.log(getAndLoadDbMuscle());
+console.log(getAndLoadDbExercises());
+console.log(getAndLoadDbBodyParts());
 
 module.exports = {
   getAndLoadDbExercises,
