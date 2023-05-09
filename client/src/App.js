@@ -16,7 +16,7 @@ import Store from "./components/Store/Store";
 import FormProducts from "./components/FormProducts/FormProducts";
 
 import axios from 'axios'
-axios.defaults.baseURL = 'pf-henry-gym-production.up.railway.app/'
+axios.defaults.baseURL = 'https://pf-henry-gym-production.up.railway.app'
 
 const App = () => {
   const location = useLocation();
