@@ -9,7 +9,7 @@ const getAndLoadDbExercises = async () => {
     url: "https://exercisedb.p.rapidapi.com/exercises",
     headers: {
       "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "bf730ac0f4msh44114018a91bcb5p103951jsn14fd519029dc",
+      "X-RapidAPI-Key": "7e715ef831msh5c89891ae4651bdp13cde7jsn517618af6d57",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
@@ -42,7 +42,7 @@ const getAndLoadDbBodyParts = async () => {
     url: "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
     headers: {
       "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "bf730ac0f4msh44114018a91bcb5p103951jsn14fd519029dc",
+      "X-RapidAPI-Key": "7e715ef831msh5c89891ae4651bdp13cde7jsn517618af6d57",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
@@ -69,7 +69,7 @@ const getAndLoadDbMuscle = async () => {
     url: "https://exercisedb.p.rapidapi.com/exercises/targetList",
     headers: {
       "content-type": "application/octet-stream",
-      "X-RapidAPI-Key": "bf730ac0f4msh44114018a91bcb5p103951jsn14fd519029dc",
+      "X-RapidAPI-Key": "7e715ef831msh5c89891ae4651bdp13cde7jsn517618af6d57",
       "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
     },
   };
